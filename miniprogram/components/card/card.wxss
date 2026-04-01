@@ -1,0 +1,183 @@
+.card {
+  perspective: 1000rpx;
+  width: 220rpx;
+  height: 320rpx;
+}
+
+.card.small {
+  width: 140rpx;
+  height: 200rpx;
+}
+
+.card.large {
+  width: 300rpx;
+  height: 440rpx;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+/* 背面 */
+.card-back {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border: 3rpx solid rgba(233,69,96,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back-pattern {
+  width: 80%;
+  height: 80%;
+  border: 2rpx solid rgba(233,69,96,0.2);
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10rpx,
+    rgba(233,69,96,0.05) 10rpx,
+    rgba(233,69,96,0.05) 20rpx
+  );
+}
+
+.back-text {
+  font-size: 36rpx;
+  color: #e94560;
+  font-weight: bold;
+  letter-spacing: 4rpx;
+}
+
+.small .back-text {
+  font-size: 24rpx;
+}
+
+/* 正面 */
+.card-front {
+  background: #fff;
+  border: 3rpx solid #ddd;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 12rpx;
+}
+
+/* 角落 */
+.corner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.top-left {
+  align-self: flex-start;
+}
+
+.bottom-right {
+  align-self: flex-end;
+  transform: rotate(180deg);
+  margin-top: auto;
+}
+
+.corner-rank {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.small .corner-rank {
+  font-size: 22rpx;
+}
+
+.large .corner-rank {
+  font-size: 36rpx;
+}
+
+.corner-rank.red {
+  color: #e94560;
+}
+
+.corner-rank.black {
+  color: #333;
+}
+
+.corner-suit {
+  font-size: 22rpx;
+}
+
+.small .corner-suit {
+  font-size: 16rpx;
+}
+
+/* 中间效果区 */
+.card-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.effect-icon {
+  font-size: 56rpx;
+}
+
+.small .effect-icon {
+  font-size: 36rpx;
+}
+
+.large .effect-icon {
+  font-size: 72rpx;
+}
+
+.effect-name {
+  font-size: 22rpx;
+  font-weight: bold;
+}
+
+.small .effect-name {
+  font-size: 18rpx;
+}
+
+.large .effect-name {
+  font-size: 28rpx;
+}
+
+/* 鬼牌覆盖 */
+.joker-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(155,89,182,0.08);
+}
+
+.joker-icon {
+  font-size: 80rpx;
+  opacity: 0.15;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "guandan-server",
+  "version": "1.0.0",
+  "description": "灌蛋游戏 WebSocket 服务端",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}

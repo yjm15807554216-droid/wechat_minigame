@@ -1,0 +1,141 @@
+.player-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.avatar-wrapper {
+  position: relative;
+}
+
+.avatar-circle {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255,255,255,0.2);
+  overflow: hidden;
+}
+
+.small .avatar-circle {
+  width: 72rpx;
+  height: 72rpx;
+}
+
+.default-avatar {
+  background: linear-gradient(135deg, #e94560, #c23152);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.small .default-avatar {
+  font-size: 28rpx;
+}
+
+.empty-circle {
+  background: transparent;
+  border: 4rpx dashed rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-icon {
+  color: rgba(255,255,255,0.3);
+  font-size: 48rpx;
+}
+
+/* 激活状态 - 当前回合 */
+.active .avatar-circle {
+  border-color: #e94560;
+  box-shadow: 0 0 20rpx rgba(233,69,96,0.6);
+}
+
+.active .avatar-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -6rpx;
+  left: -6rpx;
+  right: -6rpx;
+  bottom: -6rpx;
+  border-radius: 50%;
+  border: 3rpx solid #e94560;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* 徽章 */
+.badge {
+  position: absolute;
+  font-size: 20rpx;
+  line-height: 1;
+  padding: 4rpx;
+  border-radius: 20rpx;
+  min-width: 36rpx;
+  text-align: center;
+}
+
+.owner-badge {
+  top: -10rpx;
+  right: -10rpx;
+  font-size: 24rpx;
+}
+
+.drink-badge {
+  bottom: -8rpx;
+  right: -16rpx;
+  background: #e94560;
+  color: #fff;
+  font-size: 18rpx;
+  padding: 4rpx 8rpx;
+}
+
+.shield-badge {
+  top: -10rpx;
+  left: -10rpx;
+  font-size: 22rpx;
+}
+
+/* 免疫光效 */
+.immune-glow {
+  position: absolute;
+  top: -8rpx;
+  left: -8rpx;
+  right: -8rpx;
+  bottom: -8rpx;
+  border-radius: 50%;
+  border: 3rpx solid #FFD700;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.name {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.8);
+  max-width: 120rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.small .name {
+  font-size: 20rpx;
+  max-width: 90rpx;
+}
+
+.empty .name {
+  color: rgba(255,255,255,0.3);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10rpx rgba(255,215,0,0.5); }
+  50% { opacity: 0.6; box-shadow: 0 0 20rpx rgba(255,215,0,0.8); }
+}

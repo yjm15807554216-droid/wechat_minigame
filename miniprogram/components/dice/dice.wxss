@@ -1,0 +1,48 @@
+.dice {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.dice-face {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 16rpx;
+  display: grid;
+  padding: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.3);
+}
+
+/* 点数布局 */
+.face-1 { grid-template: 1fr / 1fr; place-items: center; }
+.face-2 { grid-template: 1fr 1fr / 1fr; }
+.face-3 { grid-template: 1fr 1fr 1fr / 1fr; }
+.face-4 { grid-template: 1fr 1fr / 1fr 1fr; place-items: center; }
+.face-5 { grid-template: 1fr 1fr 1fr / 1fr 1fr; }
+.face-6 { grid-template: 1fr 1fr 1fr / 1fr 1fr; place-items: center; }
+
+.face-2 .dot:first-child { justify-self: start; align-self: start; }
+.face-2 .dot:last-child { justify-self: end; align-self: end; }
+
+.face-3 .dot:first-child { align-self: start; justify-self: start; }
+.face-3 .dot:nth-child(2) { align-self: center; justify-self: center; }
+.face-3 .dot:last-child { align-self: end; justify-self: end; }
+
+.dot {
+  width: 20rpx;
+  height: 20rpx;
+  background: #e94560;
+  border-radius: 50%;
+}
+
+.rolling {
+  animation: shake 0.15s linear infinite;
+}
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}

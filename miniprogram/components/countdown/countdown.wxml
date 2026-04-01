@@ -1,0 +1,7 @@
+<view class="countdown {{isWarning ? 'warning' : ''}}">
+  <view class="ring" style="background: conic-gradient({{color}} {{percentage}}%, rgba(255,255,255,0.1) {{percentage}}%);">
+    <view class="ring-inner">
+      <text class="time-text" style="color: {{color}}">{{displayTime}}</text>
+    </view>
+  </view>
+</view>

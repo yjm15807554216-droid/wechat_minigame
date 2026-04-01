@@ -1,0 +1,49 @@
+<view class="page">
+  <!-- Logo区域 -->
+  <view class="hero">
+    <view class="card-fan">
+      <view class="fan-card fan-1">🃏</view>
+      <view class="fan-card fan-2">🎴</view>
+      <view class="fan-card fan-3">🃏</view>
+    </view>
+    <text class="title">灌蛋</text>
+    <text class="subtitle">线上卡牌喝酒对战</text>
+  </view>
+
+  <!-- 按钮区域 -->
+  <view class="actions">
+    <button class="btn-primary" bind:tap="createRoom" loading="{{loading}}">
+      创建房间
+    </button>
+    <button class="btn-secondary" bind:tap="showJoinModal">
+      加入房间
+    </button>
+  </view>
+
+  <!-- 玩法说明 -->
+  <view class="tips">
+    <text class="tips-title">玩法简介</text>
+    <text class="tips-text">2-6人在线 · 轮流抽牌 · 执行效果 · 快乐喝酒</text>
+  </view>
+
+  <!-- 加入房间弹窗 -->
+  <view class="modal-overlay {{showJoinModal ? 'show' : ''}}" bind:tap="hideJoinModal">
+    <view class="modal-content" catch:tap="preventTap">
+      <text class="modal-title">加入房间</text>
+      <input
+        class="room-input"
+        placeholder="输入4位房间号"
+        maxlength="4"
+        value="{{roomCodeInput}}"
+        bindinput="onRoomCodeInput"
+        confirm-type="done"
+        bindconfirm="joinRoom"
+        focus="{{showJoinModal}}"
+      />
+      <view class="modal-actions">
+        <button class="btn-secondary btn-small" bind:tap="hideJoinModal">取消</button>
+        <button class="btn-primary btn-small" bind:tap="joinRoom" loading="{{loading}}">加入</button>
+      </view>
+    </view>
+  </view>
+</view>

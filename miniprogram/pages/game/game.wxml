@@ -1,0 +1,173 @@
+<view class="page">
+  <!-- 顶部信息栏 -->
+  <view class="top-bar">
+    <view class="info-item">
+      <text class="info-label">回合</text>
+      <text class="info-value">{{roundNumber}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">余牌</text>
+      <text class="info-value">{{deckCount}}</text>
+    </view>
+    <view wx:if="{{multiplier > 1}}" class="multiplier-badge">
+      <text>x{{multiplier}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">方向</text>
+      <text class="info-value">{{direction > 0 ? '→' : '←'}}</text>
+    </view>
+    <countdown seconds="{{timerSeconds}}" total="{{30}}" />
+  </view>
+
+  <!-- 玩家环 -->
+  <view class="player-ring">
+    <view
+      wx:for="{{players}}"
+      wx:key="openId"
+      class="player-seat seat-{{players.length}}-{{index}}"
+    >
+      <player-avatar
+        nickname="{{item.nickname}}"
+        avatarUrl="{{item.avatarUrl}}"
+        isActive="{{index === currentPlayerIndex}}"
+        drinkCount="{{item.totalDrinks}}"
+        hasShield="{{item.shieldCount > 0}}"
+        isImmune="{{item.immuneRounds > 0}}"
+        size="small"
+        data-openid="{{item.openId}}"
+        bind:tap="selectTarget"
+      />
+    </view>
+  </view>
+
+  <!-- 中心游戏区 -->
+  <view class="center-zone">
+    <!-- 抽牌按钮 -->
+    <block wx:if="{{turnPhase === 'draw'}}">
+      <block wx:if="{{isMyTurn}}">
+        <view class="draw-btn" bind:tap="drawCard">
+          <text class="draw-text">抽牌</text>
+        </view>
+      </block>
+      <block wx:else>
+        <text class="waiting-text">等待 {{players[currentPlayerIndex].nickname}} 抽牌...</text>
+      </block>
+    </block>
+
+    <!-- 卡牌展示 -->
+    <block wx:if="{{currentCard && turnPhase === 'effect'}}">
+      <game-card card="{{currentCard}}" flipped="{{cardFlipped}}" size="large" />
+    </block>
+  </view>
+
+  <!-- 目标选择浮层 -->
+  <view wx:if="{{showTargetSelect && isMyTurn}}" class="action-overlay">
+    <view class="action-panel">
+      <text class="action-title">选择目标玩家</text>
+      <view class="target-grid">
+        <view
+          wx:for="{{players}}"
+          wx:key="openId"
+          wx:if="{{item.openId !== myOpenId}}"
+          class="target-item"
+          data-openid="{{item.openId}}"
+          bind:tap="selectTarget"
+        >
+          <player-avatar
+            nickname="{{item.nickname}}"
+            avatarUrl="{{item.avatarUrl}}"
+            drinkCount="{{item.totalDrinks}}"
+            hasShield="{{item.shieldCount > 0}}"
+            isImmune="{{item.immuneRounds > 0}}"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 真心话/大冒险浮层 -->
+  <view wx:if="{{showTruthDare && isMyTurn}}" class="action-overlay">
+    <view class="action-panel">
+      <text class="action-title">{{pendingEffect.effectType === 'truth' ? '真心话' : '大冒险'}}</text>
+      <text class="question-text">{{truthDareQuestion}}</text>
+      <view class="action-buttons">
+        <button class="btn-accept" data-accepted="true" bind:tap="respondTruthDare">
+          接受挑战
+        </button>
+        <button class="btn-refuse" data-accepted="false" bind:tap="respondTruthDare">
+          拒绝 (喝酒)
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 灌蛋王选择浮层 -->
+  <view wx:if="{{showGuandanKing && isMyTurn}}" class="action-overlay">
+    <view class="action-panel">
+      <text class="action-title">👑 灌蛋王</text>
+      <text class="action-desc">选择你的惩罚方式</text>
+      <view class="action-buttons">
+        <button class="btn-accept" data-choice="single" bind:tap="guandanKingChoice">
+          指定1人喝5口
+        </button>
+        <button class="btn-refuse" data-choice="all" bind:tap="guandanKingChoice">
+          全员喝3口
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 决斗结果 -->
+  <view wx:if="{{showDuel && duelData}}" class="action-overlay">
+    <view class="action-panel duel-panel">
+      <text class="action-title">决斗结果</text>
+      <view class="duel-result">
+        <view class="duel-side">
+          <text class="duel-role">挑战者</text>
+          <dice value="{{duelData.challengerRoll}}" />
+          <text class="duel-score">{{duelData.challengerRoll}}点</text>
+        </view>
+        <text class="vs-text">VS</text>
+        <view class="duel-side">
+          <text class="duel-role">防御者</text>
+          <dice value="{{duelData.defenderRoll}}" />
+          <text class="duel-score">{{duelData.defenderRoll}}点</text>
+        </view>
+      </view>
+      <text class="duel-loser">{{duelData.loserName}} 输了!</text>
+    </view>
+  </view>
+
+  <!-- 护盾按钮 -->
+  <view wx:if="{{!isMyTurn}}" class="shield-area">
+    <block wx:for="{{players}}" wx:key="openId">
+      <block wx:if="{{item.openId === myOpenId && item.shieldCount > 0}}">
+        <view class="shield-btn" bind:tap="useShield">
+          <text>🛡️ 使用护盾 ({{item.shieldCount}})</text>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <!-- 游戏日志 -->
+  <scroll-view class="game-log" scroll-y enhanced show-scrollbar="{{false}}">
+    <view wx:for="{{gameLog}}" wx:key="index" class="log-item">
+      <text class="log-time">{{item.time}}</text>
+      <text class="log-text">{{item.text}}</text>
+    </view>
+    <view wx:if="{{gameLog.length === 0}}" class="log-empty">
+      <text>游戏开始！</text>
+    </view>
+  </scroll-view>
+
+  <!-- 效果弹窗 -->
+  <effect-popup
+    wx:if="{{effectPopupData}}"
+    show="{{showEffectPopup}}"
+    effectName="{{effectPopupData.effectConfig.name}}"
+    effectIcon="{{effectPopupData.effectConfig.icon}}"
+    effectColor="{{effectPopupData.effectConfig.color}}"
+    playerName="{{effectPopupData.playerName}}"
+    bind:dismiss="dismissPopup"
+  />
+</view>

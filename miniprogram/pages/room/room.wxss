@@ -1,0 +1,156 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx;
+}
+
+/* 房间号区域 */
+.room-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+
+.room-label {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 12rpx;
+}
+
+.room-code-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.room-code {
+  font-size: 72rpx;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 24rpx;
+}
+
+.copy-icon {
+  font-size: 32rpx;
+  opacity: 0.5;
+}
+
+.room-hint {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.3);
+  margin-top: 8rpx;
+}
+
+/* 玩家网格 2x3 */
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40rpx 30rpx;
+  width: 100%;
+  padding: 40rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 24rpx;
+  border: 2rpx solid rgba(255,255,255,0.08);
+  justify-items: center;
+  margin-bottom: 30rpx;
+}
+
+.player-count {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 60rpx;
+}
+
+/* 底部按钮 */
+.bottom-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  margin-top: auto;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #e94560, #c23152);
+  color: #fff;
+  border: none;
+  border-radius: 50rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  letter-spacing: 6rpx;
+}
+
+.btn-primary.disabled {
+  opacity: 0.4;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #e94560;
+  border: 2rpx solid rgba(233,69,96,0.3);
+  border-radius: 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+
+.btn-share {
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: 2rpx solid rgba(255,255,255,0.15);
+  border-radius: 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+
+/* 等待状态 */
+.waiting-text {
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 30rpx;
+  padding: 30rpx;
+}
+
+.waiting-dot {
+  color: #e94560;
+  margin-right: 10rpx;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* 连接中遮罩 */
+.connecting-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.connecting-box {
+  background: #1a1a2e;
+  padding: 40rpx 60rpx;
+  border-radius: 16rpx;
+  border: 2rpx solid rgba(233,69,96,0.3);
+}
+
+.connecting-text {
+  color: #fff;
+  font-size: 30rpx;
+}

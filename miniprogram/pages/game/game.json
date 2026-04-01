@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "player-avatar": "/components/player-avatar/player-avatar",
+    "game-card": "/components/card/card",
+    "countdown": "/components/countdown/countdown",
+    "dice": "/components/dice/dice",
+    "effect-popup": "/components/effect-popup/effect-popup"
+  }
+}

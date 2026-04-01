@@ -1,0 +1,8 @@
+<view class="popup-overlay {{show ? 'show' : ''}}" bind:tap="onTap">
+  <view class="popup-content" wx:if="{{show}}">
+    <text class="popup-player">{{playerName}}</text>
+    <text class="popup-icon">{{effectIcon}}</text>
+    <text class="popup-name" style="color: {{effectColor}}">{{effectName}}</text>
+    <text class="popup-desc">{{description}}</text>
+  </view>
+</view>

@@ -1,0 +1,36 @@
+<view class="card {{size}} {{flipped ? 'flipped' : ''}}" bind:tap="onTap">
+  <view class="card-inner">
+    <!-- 背面 -->
+    <view class="card-back">
+      <view class="card-back-pattern">
+        <text class="back-text">灌蛋</text>
+      </view>
+    </view>
+
+    <!-- 正面 -->
+    <view class="card-front" wx:if="{{card}}">
+      <!-- 左上花色+数字 -->
+      <view class="corner top-left">
+        <text class="corner-rank {{isRed ? 'red' : 'black'}}">{{displayRank}}</text>
+        <text class="corner-suit" style="color: {{suitColor}}">{{suitSymbol}}</text>
+      </view>
+
+      <!-- 中间效果 -->
+      <view class="card-center">
+        <text class="effect-icon">{{effectIcon}}</text>
+        <text class="effect-name" style="color: {{effectColor}}">{{effectName}}</text>
+      </view>
+
+      <!-- 右下花色+数字(倒转) -->
+      <view class="corner bottom-right">
+        <text class="corner-suit" style="color: {{suitColor}}">{{suitSymbol}}</text>
+        <text class="corner-rank {{isRed ? 'red' : 'black'}}">{{displayRank}}</text>
+      </view>
+
+      <!-- 鬼牌特殊样式 -->
+      <view wx:if="{{isJoker}}" class="joker-overlay">
+        <text class="joker-icon">🃏</text>
+      </view>
+    </view>
+  </view>
+</view>

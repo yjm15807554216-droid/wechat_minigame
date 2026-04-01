@@ -1,0 +1,5 @@
+<view class="dice {{rolling ? 'rolling' : ''}}" bind:tap="onTap">
+  <view class="dice-face face-{{displayValue}}">
+    <view wx:for="{{dots}}" wx:key="index" class="dot"></view>
+  </view>
+</view>

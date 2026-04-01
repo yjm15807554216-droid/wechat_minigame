@@ -1,0 +1,55 @@
+<view class="page">
+  <!-- 房间号 -->
+  <view class="room-header">
+    <text class="room-label">房间号</text>
+    <view class="room-code-row" bind:tap="copyRoomCode">
+      <text class="room-code">{{roomCode}}</text>
+      <text class="copy-icon">📋</text>
+    </view>
+    <text class="room-hint">点击复制，分享给好友</text>
+  </view>
+
+  <!-- 玩家列表 -->
+  <view class="player-grid">
+    <block wx:for="{{maxPlayers}}" wx:key="index">
+      <player-avatar
+        wx:if="{{index < players.length}}"
+        nickname="{{players[index].nickname}}"
+        avatarUrl="{{players[index].avatarUrl}}"
+        isOwner="{{index === 0}}"
+      />
+      <player-avatar
+        wx:else
+        isEmpty="{{true}}"
+      />
+    </block>
+  </view>
+
+  <!-- 人数信息 -->
+  <text class="player-count">{{players.length}} / {{maxPlayers}} 人</text>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-actions">
+    <block wx:if="{{isOwner}}">
+      <button class="btn-primary {{canStart ? '' : 'disabled'}}" bind:tap="startGame" disabled="{{!canStart}}">
+        {{canStart ? '开始游戏' : '等待更多玩家...'}}
+      </button>
+    </block>
+    <block wx:else>
+      <view class="waiting-text">
+        <text class="waiting-dot">●</text>
+        <text>等待房主开始游戏...</text>
+      </view>
+    </block>
+
+    <button class="btn-secondary" bind:tap="exitRoom">退出房间</button>
+    <button class="btn-share" open-type="share">邀请好友</button>
+  </view>
+
+  <!-- 连接中 -->
+  <view wx:if="{{connecting}}" class="connecting-overlay">
+    <view class="connecting-box">
+      <text class="connecting-text">连接中...</text>
+    </view>
+  </view>
+</view>
